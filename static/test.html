@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript" src="./jquery.js"></script>
-<script type="text/javascript" src="./sockjs.js"></script>
+<script type="text/javascript" src="../src/main/webapp/js/jquery.js"></script>
+<script type="text/javascript" src="../src/main/webapp/js/sockjs.js"></script>
 <script type="text/javascript">
     var websocket = null;
     if ('WebSocket' in window) {
-        websocket = new WebSocket("ws://localhost:8080/quicksand/websocket/socketServer.do");
+        websocket = new WebSocket("ws://localhost:8080/websocket/socketServer.do");
     }
     else if ('MozWebSocket' in window) {
-        websocket = new MozWebSocket("ws://localhost:8080/quicksand/websocket/socketServer.do");
+        websocket = new MozWebSocket("ws://localhost:8080/websocket/socketServer.do");
     }
     else {
-        websocket = new SockJS("http://localhost:8080/quicksand/sockjs/socketServer.do");
+        websocket = new SockJS("http://localhost:8080/sockjs/socketServer.do");
     }
     websocket.onopen = onOpen;
     websocket.onmessage = onMessage;
@@ -42,13 +42,13 @@
             alert("连接失败!");
         }
     }
-
     window.close=function()
     {
         websocket.onclose();
     }
+
 </script>
-请输入：<textarea rows="5" cols="10" id="inputMsg" name="inputMsg"></textarea>
+请输入：<input rows="5" cols="10" id="inputMsg" name="inputMsg"></input>
 <button onclick="doSend();">发送</button>
 </body>
 </html>

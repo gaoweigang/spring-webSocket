@@ -1,4 +1,4 @@
-package com.gwg.demo.config;
+package com.gwg.demo.config.websocket;
 
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -14,22 +14,22 @@ import java.util.Map;
  * @author WANG
  *
  */
+
 public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                    Map<String, Object> attributes) throws Exception {
-        // TODO Auto-generated method stub
         System.out.println("Before Handshake");
         if (request instanceof ServletServerHttpRequest) {
             ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
             HttpSession session = servletRequest.getServletRequest().getSession(false);
             if (session != null) {
                 //使用userName区分WebSocketHandler，以便定向发送消息
-                String userName = (String) session.getAttribute("SESSION_USERNAME");
-                if (userName==null) {
-                    userName="default-system";
+                String userName = (String) session.getAttribute("SESSION_USERNAME");  //一般直接保存user实体
+                if (userName != null) {
+                    attributes.put("WEBSOCKET_USERID", userName);
                 }
-                attributes.put("WEBSOCKET_USERNAME",userName);
+
             }
         }
         return super.beforeHandshake(request, response, wsHandler, attributes);
@@ -39,7 +39,7 @@ public class SpringWebSocketHandlerInterceptor extends HttpSessionHandshakeInter
     @Override
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
                                Exception ex) {
-        // TODO Auto-generated method stub
         super.afterHandshake(request, response, wsHandler, ex);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.gwg.demo.config;
+package com.gwg.demo.config.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,23 +11,26 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 @Configuration
 @EnableWebSocket
-@EnableWebMvc //启用SpringMvc
-@ComponentScan("com.gwg") //扫描包
 public class WebSocketConfig implements WebSocketConfigurer{
 
-    @Bean
-    public SpringWebSocketHandler springWebSocketHandler() {
-        return new SpringWebSocketHandler();
-    }
-
-    @Bean
-    public TextWebSocketHandler textWebSocketHandler(){
-        return new SpringWebSocketHandler();
-    }
-
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(textWebSocketHandler(),"/websocket/socketServer.do").addInterceptors(new SpringWebSocketHandlerInterceptor());
-        registry.addHandler(textWebSocketHandler(), "/sockjs/socketServer.do").addInterceptors(new SpringWebSocketHandlerInterceptor()).withSockJS();
+        registry.addHandler(webSocketHandler(),"/websocket/socketServer")
+                .addInterceptors(new SpringWebSocketHandlerInterceptor());
+
+        registry.addHandler(webSocketHandler(), "/sockjs/socketServer")
+                .addInterceptors(new SpringWebSocketHandlerInterceptor()).withSockJS();
+    }
+
+    @Bean
+    public TextWebSocketHandler webSocketHandler(){
+
+        return new SpringWebSocketHandler();
+    }
+
+    @Bean//这个注解会从Spring容器拿出Bean
+    public SpringWebSocketHandler infoHandler() {
+
+        return new SpringWebSocketHandler();
     }
 
 }

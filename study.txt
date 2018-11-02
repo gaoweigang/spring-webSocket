@@ -1,6 +1,7 @@
 #websocket是Html5新增加特性之一，目的是浏览器与服务端建立全双工的通信方式，解决http请求-响应带来过多的资源消耗，同时对特殊场景应用提供了全新的实现方式，比如聊天、股票交易、游戏等对对实时性要求较高的行业领域。
 参考：https://www.cnblogs.com/3dianpomian/p/5902084.html
 https://www.cnblogs.com/nosqlcoco/p/5860730.html
+https://www.cnblogs.com/jingmoxukong/p/7755643.html
 
 集成webSocket的几种方式
 https://www.cnblogs.com/yangchongxing/p/8474256.html
@@ -9,3 +10,18 @@ https://blog.csdn.net/cxfly957/article/details/79297650/
 Spring官方参考文档：
 https://spring.io/projects/spring-security-oauth
 https://blog.csdn.net/lovesomnus/article/details/72995593
+
+SpringmMVC整合JSP，在这里前端为什么不使用HTML？因为webSocket依赖Session,而Session在服务端必须有明确的代码创建,这样才能给指定用户推送消息，而JSP会转换成java代码，在此过程中会创建Session
+https://blog.csdn.net/i5g4nn/article/details/68947770
+
+
+4.浏览器同步测试工具：browser-sync
+Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面
+安装：npm install -g browser-sync
+使用：browser-sync start --server --files "*.html"
+参考：http://www.browsersync.cn/
+
+
+异常：
+WebSocket connection to 'ws://localhost:8080/websocket/socketServer.do' failed: Error during WebSocket handshake: Unexpected response code: 403
+参考：https://www.cnblogs.com/caer/p/6105854.html
